@@ -1,7 +1,6 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
-import "../styles/app.scss"
 import RecipeList from "../components/recipe-list"
 import Layout from "../components/Layout"
 
@@ -16,17 +15,8 @@ class IndexPage extends React.Component {
         <div class="container">
           <title>Home Page</title>
           <h1>Family Recipes</h1>
-          {recipes.map(({ node }) => {
-            const title = node.title || node.slug
-            return (
-              <div key={node.slug}>
-                <h2>
-                  <Link to={node.slug}>{title}</Link>
-                </h2>
-              </div>
-            )
-          })}
-          <RecipeList />
+
+          <RecipeList recipes={recipes} />
         </div>
       </Layout>
     )

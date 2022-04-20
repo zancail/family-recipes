@@ -16,22 +16,6 @@ class RecipeContentfulTemplate extends React.Component {
             <div className="col-lg-7">
               <h1>{recipe.title}</h1>
               <div>{renderRichText(recipe.preparation, {})}</div>
-              <ul class="list-unstyled d-flex justify-content-between">
-                <li>
-                  {previous && (
-                    <Link to={previous.slug} rel="prev">
-                      Previous: {previous.title}
-                    </Link>
-                  )}
-                </li>
-                <li>
-                  {next && (
-                    <Link to={next.slug} rel="next">
-                      Next: {next.title}
-                    </Link>
-                  )}
-                </li>
-              </ul>
             </div>
             <div className="col-lg-3 offset-lg-1">
               <div className="card border py-2 px-3">
@@ -39,6 +23,22 @@ class RecipeContentfulTemplate extends React.Component {
               </div>
             </div>
           </div>
+          <ul class="list-unstyled d-flex justify-content-between">
+            <li>
+              {previous && (
+                <Link to={"/" + previous.slug} rel="prev">
+                  Previous: {previous.title}
+                </Link>
+              )}
+            </li>
+            <li>
+              {next && (
+                <Link to={"/" + next.slug} rel="next">
+                  Next: {next.title}
+                </Link>
+              )}
+            </li>
+          </ul>
         </div>
       </Layout>
     )
