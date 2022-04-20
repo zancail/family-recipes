@@ -3,10 +3,8 @@ import * as React from "react"
 // markup
 const Footer = () => {
   return (
-    <footer class="bg-primary text-white py-2 mt-4">
-      <div class="container">
-      Site by Ilona 2022
-      </div>
+    <footer className="bg-primary text-white py-2 mt-4">
+      <div className="container">Site by Ilona 2022</div>
     </footer>
   )
 }

@@ -12,7 +12,7 @@ class IndexPage extends React.Component {
 
     return (
       <Layout>
-        <div class="container">
+        <div className="container">
           <title>Home Page</title>
           <h1>Family Recipes</h1>
 

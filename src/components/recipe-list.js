@@ -4,7 +4,7 @@ import RecipeListItem from "./recipe-list-item"
 // markup
 const RecipeList = (props) => {
   return (
-    <ul class="list-unstyled row">
+    <ul className="list-unstyled row">
       {props.recipes.map(({ node }) => {
         return <RecipeListItem recipe={node} />
       })}
