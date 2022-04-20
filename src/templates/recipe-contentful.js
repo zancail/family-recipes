@@ -16,6 +16,17 @@ class RecipeContentfulTemplate extends React.Component {
           <div className="row">
             <div className="col-lg-7">
               <h1>{recipe.title}</h1>
+              {recipe.tags && (
+                <ul className="list-unstyled d-flex mx-n1 mb-4">
+                  {recipe.tags.map((tag, i) => {
+                    return (
+                      <li className="badge badge-pill bg-info mx-1">
+                        {tag.title}
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
               <div>{renderRichText(recipe.intro, {})}</div>
               <h2>Preparation</h2>
               <div>{renderRichText(recipe.preparation, {})}</div>
@@ -70,6 +81,9 @@ export const pageQuery = graphql`
       }
       image {
         gatsbyImageData(width: 200)
+      }
+      tags {
+        title
       }
     }
   }
