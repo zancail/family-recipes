@@ -37,6 +37,12 @@ export const pageQuery = graphql`
         node {
           title
           slug
+          intro {
+            raw
+          }
+          image {
+            gatsbyImageData(width: 200)
+          }
         }
       }
     }

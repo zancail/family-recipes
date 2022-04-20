@@ -2,11 +2,12 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import Layout from "../components/Layout"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 class RecipeContentfulTemplate extends React.Component {
   render() {
     const recipe = this.props.data.contentfulRecipe
-    // const siteTitle = this.props.data.site.siteMetadata.title
+    const image = getImage(recipe.image)
     const { previous, next } = this.props.pageContext
 
     return (
@@ -15,11 +16,16 @@ class RecipeContentfulTemplate extends React.Component {
           <div className="row">
             <div className="col-lg-7">
               <h1>{recipe.title}</h1>
+              <div>{renderRichText(recipe.intro, {})}</div>
+              <h2>Preparation</h2>
               <div>{renderRichText(recipe.preparation, {})}</div>
             </div>
             <div className="col-lg-3 offset-lg-1">
-              <div className="card border py-2 px-3">
-                <h2>Ingredients</h2>
+              <div className="card border">
+                <GatsbyImage image={image} alt={recipe.title} />
+                <div class="card-body">
+                  <h2 className="h4">Ingredients</h2>
+                </div>
               </div>
             </div>
           </div>
@@ -58,6 +64,12 @@ export const pageQuery = graphql`
       title
       preparation {
         raw
+      }
+      intro {
+        raw
+      }
+      image {
+        gatsbyImageData(width: 200)
       }
     }
   }
