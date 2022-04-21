@@ -9,7 +9,7 @@ const IndexPage = (props) => {
   const recipes = data.allContentfulRecipe.edges
 
   return (
-    <Layout>
+    <Layout location={props.location}>
       <div className="container">
         <title>Home Page</title>
         <h1>Family Recipes</h1>
@@ -23,17 +23,18 @@ const IndexPage = (props) => {
 export default IndexPage
 
 export const pageQuery = graphql`
-  query ContentfulRecipes($locale: String) {
+  query {
     site {
       siteMetadata {
         title
       }
     }
-    allContentfulRecipe(filter: { node_locale: { eq: $locale } }) {
+    allContentfulRecipe(filter: { node_locale: { eq: "en-US" } }) {
       edges {
         node {
           title
           slug
+          node_locale
           intro {
             raw
           }

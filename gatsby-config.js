@@ -1,4 +1,5 @@
 const dotenv = require("dotenv")
+const languages = require("./src/data/languages")
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config()
@@ -8,6 +9,7 @@ module.exports = {
   siteMetadata: {
     title: `Family Recipes`,
     siteUrl: `https://www.yourdomain.tld`,
+    languages,
   },
   plugins: [
     {
@@ -24,9 +26,9 @@ module.exports = {
     {
       resolve: "gatsby-plugin-i18n",
       options: {
-        langKeyDefault: "en_us",
+        langKeyForNull: "any",
+        langKeyDefault: languages.defaultLangKey,
         useLangKeyLayout: false,
-        prefixDefault: false,
       },
     },
   ],

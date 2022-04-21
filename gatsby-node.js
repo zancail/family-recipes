@@ -33,14 +33,10 @@ exports.createPages = ({ graphql, actions }) => {
         index === recipes.length - 1 ? null : recipes[index + 1].node
       const next = index === 0 ? null : recipes[index - 1].node
 
-      // Get locale prefix
-      const prefix =
-        recipe.node.node_locale.toLowerCase() === "en-us"
-          ? ""
-          : recipe.node.node_locale.toLowerCase()
-
       createPage({
-        path: prefix + recipe.node.slug,
+        path: `/${recipe.node.node_locale.toLowerCase()}/recipes/${
+          recipe.node.slug
+        }/`,
         component: recipeTemplate,
         context: {
           slug: recipe.node.slug,

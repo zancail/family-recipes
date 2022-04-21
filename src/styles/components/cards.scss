@@ -1,0 +1,34 @@
+.card {
+  position: relative;
+  overflow: hidden;
+
+  &__image {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+
+  &__image-placeholder {
+    position: relative;
+    width: 100%;
+    padding-top: calc(280 / 350 * 100%);
+    background-color: $light;
+  }
+  &__intro {
+    max-height: 19.5rem;
+    overflow: hidden;
+  }
+  &__link::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    content: "";
+  }
+}
