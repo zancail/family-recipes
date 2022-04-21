@@ -1,25 +1,33 @@
-const dotenv = require('dotenv')
+const dotenv = require("dotenv")
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   dotenv.config()
 }
 
 module.exports = {
   siteMetadata: {
     title: `Family Recipes`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
     {
-      resolve: 'gatsby-source-contentful',
+      resolve: "gatsby-source-contentful",
       options: {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        spaceId: process.env.SPACE_ID
-      }
-    }, 
-    "gatsby-plugin-sass", 
+        spaceId: process.env.SPACE_ID,
+      },
+    },
+    "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-  ]
-};
+    {
+      resolve: "gatsby-plugin-i18n",
+      options: {
+        langKeyDefault: "en_us",
+        useLangKeyLayout: false,
+        prefixDefault: false,
+      },
+    },
+  ],
+}

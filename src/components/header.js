@@ -1,7 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
 
-// markup
 const Header = () => {
   return (
     <header className="bg-primary text-white py-2 mb-4">

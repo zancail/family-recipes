@@ -4,23 +4,20 @@ import { graphql } from "gatsby"
 import RecipeList from "../components/recipe-list"
 import Layout from "../components/Layout"
 
-// markup
-class IndexPage extends React.Component {
-  render() {
-    const { data } = this.props
-    const recipes = data.allContentfulRecipe.edges
+const IndexPage = (props) => {
+  const { data } = props
+  const recipes = data.allContentfulRecipe.edges
 
-    return (
-      <Layout>
-        <div className="container">
-          <title>Home Page</title>
-          <h1>Family Recipes</h1>
+  return (
+    <Layout>
+      <div className="container">
+        <title>Home Page</title>
+        <h1>Familierecepten</h1>
 
-          <RecipeList recipes={recipes} />
-        </div>
-      </Layout>
-    )
-  }
+        <RecipeList recipes={recipes} />
+      </div>
+    </Layout>
+  )
 }
 
 export default IndexPage
@@ -37,6 +34,7 @@ export const pageQuery = graphql`
         node {
           title
           slug
+          node_locale
           intro {
             raw
           }
