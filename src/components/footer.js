@@ -1,6 +1,5 @@
 import * as React from "react"
 
-// markup
 const Footer = () => {
   return (
     <footer className="bg-primary text-white py-2 mt-4">

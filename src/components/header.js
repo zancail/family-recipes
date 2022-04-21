@@ -1,10 +1,15 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import useScrollPosition from "../hooks/useScrollPosition"
 
-// markup
 const Header = () => {
+  const scrollPos = useScrollPosition()
   return (
-    <header className="bg-primary text-white py-2 mb-4">
+    <header
+      className={`header bg-primary text-white mb-4 ${
+        scrollPos > 40 ? "header--shrink" : ""
+      }`}
+    >
       <div className="container d-flex justify-content-between align-items-center">
         <div>Family Recipes</div>
         <nav>
