@@ -38,7 +38,7 @@ const RecipeContentfulTemplate = (props) => {
   }
 
   return (
-    <Layout>
+    <Layout location={props.location}>
       <div className="container">
         <div className="row">
           <div className="col-lg-7">
@@ -59,7 +59,13 @@ const RecipeContentfulTemplate = (props) => {
           </div>
           <div className="col-lg-4 offset-lg-1">
             <div className="card border">
-              <GatsbyImage image={image} alt={recipe.title} />
+              <div className="card__image-placeholder">
+                <GatsbyImage
+                  className="card__image"
+                  image={image}
+                  alt={recipe.title}
+                />
+              </div>
               <div className="card-body">
                 <h2 className="h4">Ingredients</h2>
               </div>

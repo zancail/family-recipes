@@ -9,7 +9,7 @@ const IndexPage = (props) => {
   const recipes = data.allContentfulRecipe.edges
 
   return (
-    <Layout>
+    <Layout location={props.location}>
       <div className="container">
         <title>Home Page</title>
         <h1>Family Recipes</h1>
@@ -29,11 +29,12 @@ export const pageQuery = graphql`
         title
       }
     }
-    allContentfulRecipe {
+    allContentfulRecipe(filter: { node_locale: { eq: "nl-BE" } }) {
       edges {
         node {
           title
           slug
+          node_locale
           intro {
             raw
           }

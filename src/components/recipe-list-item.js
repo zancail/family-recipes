@@ -21,14 +21,26 @@ const RecipeListItem = (props) => {
   return (
     <li key={props.recipe.slug} className="col-md-6 col-lg-4 col-xl-3 mb-4">
       <div className="card h-100">
-        {props.recipe.image && <GatsbyImage image={image} alt={title} />}
+        <div className="card__image-placeholder">
+          <GatsbyImage className="card__image" image={image} alt={title} />
+        </div>
         <div className="card-body d-flex flex-column justify-content-between">
           <div>
             <h2 className="h4">
-              <Link to={"/" + props.recipe.slug}>{title}</Link>
+              <Link
+                className="card__link"
+                to={`/${props.recipe.node_locale.toLowerCase()}/recipes/${
+                  props.recipe.slug
+                }/`}
+              >
+                {title}
+              </Link>
             </h2>
-            <div>{renderRichText(props.recipe.intro)}</div>
+            <div className="card__intro">
+              {renderRichText(props.recipe.intro)}
+            </div>
           </div>
+          <span className="d-inline-block mt-4">View recipe</span>
           <button
             type="button"
             onClick={toggleIsSaved}
