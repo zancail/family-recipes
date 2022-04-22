@@ -44,7 +44,7 @@ const RecipeListItem = (props) => {
           <button
             type="button"
             onClick={toggleIsSaved}
-            className={`btn border align-self-end ${
+            className={`btn border align-self-end position-relative ${
               isSaved ? "btn-danger" : ""
             }`}
           >

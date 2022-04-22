@@ -4,16 +4,17 @@ import Link from "gatsby-link"
 const Langswitcher = (props) => {
   return (
     <div className="langswitcher ms-4">
-      <ul className="list-unstyled">
+      <ul className="list-unstyled d-flex">
         {props.langs.map((lang, index) => {
           return (
-            <li key={index} selected={lang.selected}>
+            <li key={index} className="ms-4">
               <Link
                 to={lang.link}
                 key={lang.langKey}
                 style={{
                   color: "white",
                 }}
+                className={lang.selected ? "active" : "text-decoration-none"}
               >
                 {lang.langKey}
               </Link>
