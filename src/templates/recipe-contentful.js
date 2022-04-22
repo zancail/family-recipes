@@ -21,13 +21,13 @@ const RecipeContentfulTemplate = (props) => {
   const { previous, next, nodeLocale } = props.pageContext
   const content = () => {
     if (recipe.contentReferences) {
-      return recipe.contentReferences.map((reference) => {
+      return recipe.contentReferences.map((reference, index) => {
         switch (reference.__typename) {
           case WallOfTextComponentModelName: {
-            return <WallOfTextComponent {...reference} />
+            return <WallOfTextComponent key={index} {...reference} />
           }
           case QuoteComponentModelName: {
-            return <QuoteComponent {...reference} />
+            return <QuoteComponent key={index} {...reference} />
           }
           default:
             return null
@@ -135,7 +135,7 @@ const RecipeContentfulTemplate = (props) => {
                               ingredient={ingredient}
                               servings={currentServings}
                               originalServings={recipe.servings}
-                              index={i}
+                              key={i}
                               usedMetric={activeMetrics}
                             />
                           )

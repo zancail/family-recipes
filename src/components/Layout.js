@@ -11,12 +11,12 @@ const Layout = ({ children, location }) => {
   const homeLink = `/${langKey}/`
   const langsMenu = getLangs(langs, langKey, getUrlForLang(homeLink, url))
   return (
-    <div>
+    <>
       <Header langs={langsMenu} />
 
       <main>{children}</main>
       <Footer />
-    </div>
+    </>
   )
 }
 
