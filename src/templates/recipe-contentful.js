@@ -3,6 +3,11 @@ import { Link, graphql } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import Layout from "../components/Layout"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { useState } from "react"
+// Ingredients
+import IngredientComponent from "../components/ingredient-component"
+
+// Content Components
 import WallOfTextComponent, {
   modelName as WallOfTextComponentModelName,
 } from "../components/wall-of-text-component"
@@ -13,7 +18,7 @@ import QuoteComponent, {
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
   const image = getImage(recipe.image)
-  const { previous, next } = props.pageContext
+  const { previous, next, nodeLocale } = props.pageContext
   const content = () => {
     if (recipe.contentReferences) {
       return recipe.contentReferences.map((reference) => {
@@ -35,6 +40,18 @@ const RecipeContentfulTemplate = (props) => {
         <div>{renderRichText(recipe.preparation, {})}</div>
       </div>
     )
+  }
+
+  // Hooks
+  const [currentServings, setCurrentServings] = useState(recipe.servings)
+  const [activeMetrics, setActiveMetrics] = useState("eu")
+
+  const updateServings = (e) => {
+    setCurrentServings(e.currentTarget.value)
+  }
+
+  const updateMetrics = (e) => {
+    setActiveMetrics(e.target.id)
   }
 
   return (
@@ -67,7 +84,66 @@ const RecipeContentfulTemplate = (props) => {
                 />
               </div>
               <div className="card-body">
-                <h2 className="h4">Ingredients</h2>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    Servings:
+                    <input
+                      type="number"
+                      name="servings"
+                      id="servings"
+                      min="1"
+                      value={currentServings}
+                      onChange={updateServings}
+                    />
+                  </div>
+                  <div className="flex-shrink-0">
+                    Metrics:
+                    <div className="border rounded-1 d-flex">
+                      <div className="custom-radio-group">
+                        <input
+                          type="radio"
+                          name="metrics"
+                          id="eu"
+                          checked={activeMetrics === "eu"}
+                          className="custom-radio visually-hidden"
+                          onChange={updateMetrics}
+                        />
+                        <label htmlFor="eu">EU</label>
+                      </div>
+                      <div className="custom-radio-group">
+                        <input
+                          type="radio"
+                          name="metrics"
+                          id="us"
+                          className="custom-radio visually-hidden"
+                          checked={activeMetrics === "us"}
+                          onChange={updateMetrics}
+                        />
+                        <label htmlFor="us">US</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {recipe.ingredients && (
+                  <div>
+                    <h2 className="h4">Ingredients</h2>
+                    <table>
+                      <tbody>
+                        {recipe.ingredients.map((ingredient, i) => {
+                          return (
+                            <IngredientComponent
+                              ingredient={ingredient}
+                              servings={currentServings}
+                              originalServings={recipe.servings}
+                              index={i}
+                              usedMetric={activeMetrics}
+                            />
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -75,14 +151,20 @@ const RecipeContentfulTemplate = (props) => {
         <ul className="list-unstyled d-flex justify-content-between">
           <li>
             {previous && (
-              <Link to={"/" + previous.slug} rel="prev">
+              <Link
+                to={`/${nodeLocale.toLowerCase()}/recipes/${previous.slug}/`}
+                rel="prev"
+              >
                 Previous: {previous.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={"/" + next.slug} rel="next">
+              <Link
+                to={`/${nodeLocale.toLowerCase()}/recipes/${next.slug}/`}
+                rel="next"
+              >
                 Next: {next.title}
               </Link>
             )}
@@ -115,6 +197,12 @@ export const pageQuery = graphql`
       }
       tags {
         title
+      }
+      servings
+      ingredients {
+        unit
+        quantity
+        name
       }
       contentReferences {
         ...WallOfTextComponentFragment

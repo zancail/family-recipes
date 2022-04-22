@@ -1,0 +1,14 @@
+.custom-radio-group {
+  label {
+    padding: 0.4rem 0.8rem;
+  }
+
+  &:not(:last-child) {
+    border-right: $border-color solid thins;
+  }
+}
+
+.custom-radio:checked + label {
+  background: $primary;
+  color: $white;
+}

@@ -15,3 +15,9 @@ https://www.contentful.com/developers/docs/tutorials/general/rich-text-and-gatsb
 
 Rich Text
 https://www.gatsbyjs.com/blog/how-to-use-the-contentful-rich-text-field-with-gatsby/
+
+## Gatsby Cloud
+
+If deploy fails because of following error:
+`Cannot read properties of null (reading 'url')`
+it's because a new locale was added in Contentful without a fallback.
