@@ -14,6 +14,7 @@ import WallOfTextComponent, {
 import QuoteComponent, {
   modelName as QuoteComponentModelName,
 } from "../components/quote-component"
+import ReviewForm from "../components/review-form"
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
@@ -45,6 +46,13 @@ const RecipeContentfulTemplate = (props) => {
   // Hooks
   const [currentServings, setCurrentServings] = useState(recipe.servings)
   const [activeMetrics, setActiveMetrics] = useState("eu")
+  const [reviewItems, setReviewItems] = useState([])
+
+  const addReviewItem = (reviewItem) => {
+    let items = [...reviewItems, reviewItem]
+    console.log(items)
+    setReviewItems(items)
+  }
 
   const updateServings = (e) => {
     setCurrentServings(e.currentTarget.value)
@@ -146,6 +154,33 @@ const RecipeContentfulTemplate = (props) => {
                 )}
               </div>
             </div>
+          </div>
+        </div>
+        <div className="row my-4">
+          <div className="col-lg-6">
+            <h2>Reviews</h2>
+            {reviewItems.length ? (
+              <ul className="list-unstyled">
+                {reviewItems.map((reviewItem, index) => {
+                  return (
+                    <li key={index}>
+                      <div className="d-flex justify-content-between">
+                        <span>{reviewItem.name} said:</span>
+                        <span>{reviewItem.score}/5</span>
+                      </div>
+
+                      <p>{reviewItem.message}</p>
+                      <hr />
+                    </li>
+                  )
+                })}
+              </ul>
+            ) : (
+              <p>No reviews yet</p>
+            )}
+          </div>
+          <div className="col-lg-6">
+            <ReviewForm addReviewItem={addReviewItem} />
           </div>
         </div>
         <ul className="list-unstyled d-flex justify-content-between">
