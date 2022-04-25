@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import Plyr from 'plyr-react'
-import 'plyr-react/dist/plyr.css'
 
 // Layout
 import Layout from '../components/Layout'
@@ -23,24 +21,13 @@ import QuoteComponent, {
 import EmbedVideoYoutubeComponent, {
   modelName as EmbedVideoYoutubeComponentModelName,
 } from '../components/content/embed-video-youtube-component'
+import PlyrWrapper from '../components/plyr-wrapper'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
   const image = getImage(recipe.image)
-  let videoSrc = {}
-  if (recipe.tutorial) {
-    videoSrc = {
-      type: 'video',
-      title: 'Tutorial',
-      sources: [
-        {
-          src: recipe.tutorial.file.url,
-          type: recipe.tutorial.file.contentType,
-        },
-      ],
-    }
-  }
   const { previous, next, nodeLocale } = props.pageContext
+
   const content = () => {
     if (recipe.contentReferences) {
       return recipe.contentReferences.map((reference, index) => {
@@ -104,7 +91,16 @@ const RecipeContentfulTemplate = (props) => {
             )}
             <div>{renderRichText(recipe.intro, {})}</div>
             {content()}
-            {recipe.tutorial && <Plyr source={videoSrc} />}
+            {recipe.tutorial && (
+              <PlyrWrapper>
+                <video className="js-player" playsInline controls>
+                  <source
+                    src={recipe.tutorial.file.url}
+                    type={recipe.tutorial.file.contentType}
+                  />
+                </video>
+              </PlyrWrapper>
+            )}
           </div>
           <div className="col-lg-4 offset-lg-1">
             <div className="card border">

@@ -1,27 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { graphql } from 'gatsby'
+import PlyrWrapper from '../plyr-wrapper'
 
 const EmbedVideoYoutubeComponent = ({ urlOrId }) => {
   const regEx =
     '^(?:https?:)?//[^/]*(?:youtube(?:-nocookie)?.com|youtu.be).*[=/]([-\\w]{11})(?:\\?|=|&|$)'
   const videoId = urlOrId.urlOrId.match(regEx)[1]
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-      const Plyr = require('plyr')
-      Array.from(document.querySelectorAll('.js-player')).map(
-        (p) => new Plyr(p)
-      )
-    }
-  })
   return (
     <div>
       {videoId && (
-        <div
-          className="js-player"
-          data-plyr-provider="youtube"
-          data-plyr-embed-id={videoId}
-        />
+        <PlyrWrapper>
+          <div
+            className="js-player"
+            data-plyr-provider="youtube"
+            data-plyr-embed-id={videoId}
+          />
+        </PlyrWrapper>
       )}
     </div>
   )
