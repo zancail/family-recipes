@@ -21,3 +21,7 @@ https://www.gatsbyjs.com/blog/how-to-use-the-contentful-rich-text-field-with-gat
 If deploy fails because of following error:
 `Cannot read properties of null (reading 'url')`
 it's because a new locale was added in Contentful without a fallback.
+
+## Plyr
+
+I used Plyr to show videos but this caused the build in Gatsby Cloud to fail. To fix: https://chaseohlson.com/plyr-gatsby-youtube-vimeo

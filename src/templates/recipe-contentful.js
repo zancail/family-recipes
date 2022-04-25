@@ -44,7 +44,6 @@ const RecipeContentfulTemplate = (props) => {
   const content = () => {
     if (recipe.contentReferences) {
       return recipe.contentReferences.map((reference, index) => {
-        console.log(reference)
         switch (reference.__typename) {
           case WallOfTextComponentModelName: {
             return <WallOfTextComponent key={index} {...reference} />
