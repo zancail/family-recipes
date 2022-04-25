@@ -1,8 +1,8 @@
-import React from "react"
-import { graphql } from "gatsby"
+import React from 'react'
+import { graphql } from 'gatsby'
 
-import RecipeList from "../components/recipe-list"
-import Layout from "../components/Layout"
+import RecipeList from '../components/recipe-list'
+import Layout from '../components/Layout'
 
 const IndexPage = (props) => {
   const { data } = props
@@ -35,6 +35,7 @@ export const pageQuery = graphql`
           title
           slug
           node_locale
+          contentful_id
           intro {
             raw
           }

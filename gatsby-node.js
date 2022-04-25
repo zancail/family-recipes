@@ -14,6 +14,7 @@ exports.createPages = ({ graphql, actions }) => {
               slug
               node_locale
               title
+              contentful_id
             }
           }
         }
@@ -43,6 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
           previous,
           next,
           nodeLocale: recipe.node.node_locale,
+          contentfulId: recipe.node.contentful_id,
         },
       })
     })

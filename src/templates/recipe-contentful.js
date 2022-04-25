@@ -25,8 +25,26 @@ import PlyrWrapper from '../components/plyr-wrapper'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
+  const recipes = props.data.allContentfulRecipe
   const image = getImage(recipe.image)
   const { previous, next, nodeLocale } = props.pageContext
+
+  let newMenu = []
+
+  const currentUrl = props.location.pathname
+  const currentUrlArray = currentUrl.split('/')
+  recipes.edges.map(({ node: item }) => {
+    console.log(item)
+    const newMenuItem = {}
+    newMenuItem.langKey = item.node_locale.toLowerCase()
+    let newUrl = currentUrlArray
+    newUrl[1] = item.node_locale.toLowerCase()
+    newUrl[newUrl.length - 2] = item.slug
+    newUrl = newUrl.join('/')
+    newMenuItem.link = newUrl
+    newMenuItem.selected = nodeLocale === item.node_locale
+    newMenu.push(newMenuItem)
+  })
 
   const content = () => {
     if (recipe.contentReferences) {
@@ -73,7 +91,7 @@ const RecipeContentfulTemplate = (props) => {
   }
 
   return (
-    <Layout location={props.location}>
+    <Layout location={props.location} newMenu={newMenu}>
       <div className="container">
         <div className="row">
           <div className="col-lg-7">
@@ -223,13 +241,14 @@ const RecipeContentfulTemplate = (props) => {
 export default RecipeContentfulTemplate
 
 export const pageQuery = graphql`
-  query ContentfulRecipeBySlug($slug: String!) {
+  query ContentfulRecipeBySlug($slug: String!, $contentfulId: String) {
     site {
       siteMetadata {
         title
       }
     }
     contentfulRecipe(slug: { eq: $slug }) {
+      contentful_id
       title
       preparation {
         raw
@@ -259,6 +278,15 @@ export const pageQuery = graphql`
         ...WallOfTextComponentFragment
         ...QuoteComponentFragment
         ...EmbedVideoYoutubeComponentFragment
+      }
+    }
+    allContentfulRecipe(filter: { contentful_id: { eq: $contentfulId } }) {
+      edges {
+        node {
+          title
+          node_locale
+          slug
+        }
       }
     }
   }
