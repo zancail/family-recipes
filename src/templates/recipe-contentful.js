@@ -1,24 +1,42 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
-import Layout from "../components/Layout"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { useState } from "react"
+import React, { useState } from 'react'
+import { Link, graphql } from 'gatsby'
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import Plyr from 'plyr-react'
+import 'plyr-react/dist/plyr.css'
+
+// Layout
+import Layout from '../components/Layout'
+
 // Ingredients
-import IngredientComponent from "../components/ingredient-component"
+import IngredientComponent from '../components/ingredient-component'
 
 // Content Components
 import WallOfTextComponent, {
   modelName as WallOfTextComponentModelName,
-} from "../components/wall-of-text-component"
+} from '../components/wall-of-text-component'
 import QuoteComponent, {
   modelName as QuoteComponentModelName,
-} from "../components/quote-component"
-import ReviewForm from "../components/review-form"
+} from '../components/quote-component'
+import ReviewForm from '../components/review-form'
+import ReviewList from '../components/review-list'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
   const image = getImage(recipe.image)
+  let videoSrc = {}
+  if (recipe.tutorial) {
+    videoSrc = {
+      type: 'video',
+      title: 'Tutorial',
+      sources: [
+        {
+          src: recipe.tutorial.file.url,
+          type: recipe.tutorial.file.contentType,
+        },
+      ],
+    }
+  }
   const { previous, next, nodeLocale } = props.pageContext
   const content = () => {
     if (recipe.contentReferences) {
@@ -45,7 +63,7 @@ const RecipeContentfulTemplate = (props) => {
 
   // Hooks
   const [currentServings, setCurrentServings] = useState(recipe.servings)
-  const [activeMetrics, setActiveMetrics] = useState("eu")
+  const [activeMetrics, setActiveMetrics] = useState('eu')
   const [reviewItems, setReviewItems] = useState([])
 
   const addReviewItem = (reviewItem) => {
@@ -81,6 +99,7 @@ const RecipeContentfulTemplate = (props) => {
             )}
             <div>{renderRichText(recipe.intro, {})}</div>
             {content()}
+            {recipe.tutorial && <Plyr source={videoSrc} />}
           </div>
           <div className="col-lg-4 offset-lg-1">
             <div className="card border">
@@ -112,7 +131,7 @@ const RecipeContentfulTemplate = (props) => {
                           type="radio"
                           name="metrics"
                           id="eu"
-                          checked={activeMetrics === "eu"}
+                          checked={activeMetrics === 'eu'}
                           className="custom-radio visually-hidden"
                           onChange={updateMetrics}
                         />
@@ -124,7 +143,7 @@ const RecipeContentfulTemplate = (props) => {
                           name="metrics"
                           id="us"
                           className="custom-radio visually-hidden"
-                          checked={activeMetrics === "us"}
+                          checked={activeMetrics === 'us'}
                           onChange={updateMetrics}
                         />
                         <label htmlFor="us">US</label>
@@ -156,25 +175,13 @@ const RecipeContentfulTemplate = (props) => {
             </div>
           </div>
         </div>
+
+        {/* Reviews */}
         <div className="row my-4">
           <div className="col-lg-6">
             <h2>Reviews</h2>
             {reviewItems.length ? (
-              <ul className="list-unstyled">
-                {reviewItems.map((reviewItem, index) => {
-                  return (
-                    <li key={index}>
-                      <div className="d-flex justify-content-between">
-                        <span>{reviewItem.name} said:</span>
-                        <span>{reviewItem.score}/5</span>
-                      </div>
-
-                      <p>{reviewItem.message}</p>
-                      <hr />
-                    </li>
-                  )
-                })}
-              </ul>
+              <ReviewList reviews={reviewItems} />
             ) : (
               <p>No reviews yet</p>
             )}
@@ -183,6 +190,8 @@ const RecipeContentfulTemplate = (props) => {
             <ReviewForm addReviewItem={addReviewItem} />
           </div>
         </div>
+
+        {/* Recipe navigation */}
         <ul className="list-unstyled d-flex justify-content-between">
           <li>
             {previous && (
@@ -229,6 +238,12 @@ export const pageQuery = graphql`
       }
       image {
         gatsbyImageData(width: 200)
+      }
+      tutorial {
+        file {
+          url
+          contentType
+        }
       }
       tags {
         title

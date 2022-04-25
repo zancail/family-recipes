@@ -28,6 +28,7 @@
     "gatsby-transformer-sharp": "^4.12.1",
     "i18next": "^21.6.16",
     "intl": "^1.2.5",
+    "plyr-react": "^3.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.16.7",

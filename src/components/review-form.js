@@ -1,8 +1,31 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
 const ReviewForm = ({ addReviewItem }) => {
-  const [reviewName, setReviewName] = useState("")
-  const [reviewMessage, setReviewMessage] = useState("")
+  const createScoreRadioInputs = () => {
+    const elements = []
+    for (let index = 1; index < 6; index++) {
+      elements.push(
+        <div className="me-2">
+          <input
+            type="radio"
+            name="score"
+            id={index}
+            value={index}
+            checked={reviewScore === index}
+            onChange={(e) => setReviewScore(+e.target.value)}
+            className="me-1"
+          />
+          <label htmlFor={`score${index}`}>{index}</label>
+        </div>
+      )
+    }
+    return elements.map((el) => {
+      return el
+    })
+  }
+
+  const [reviewName, setReviewName] = useState('')
+  const [reviewMessage, setReviewMessage] = useState('')
   const [reviewScore, setReviewScore] = useState(5)
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -33,54 +56,9 @@ const ReviewForm = ({ addReviewItem }) => {
         value={reviewMessage}
         onChange={(e) => setReviewMessage(e.target.value)}
       ></textarea>
-      <fieldset>
+      <fieldset className="mb-3">
         <legend>Score</legend>
-        <input
-          type="radio"
-          name="score"
-          id="1"
-          value="1"
-          checked={reviewScore === 1}
-          onChange={(e) => setReviewScore(+e.target.value)}
-        />
-        <label htmlFor="score1">1</label>
-        <input
-          type="radio"
-          name="score"
-          id="2"
-          value="2"
-          checked={reviewScore === 2}
-          onChange={(e) => setReviewScore(+e.target.value)}
-        />
-        <label htmlFor="score2">2</label>
-        <input
-          type="radio"
-          name="score"
-          id="3"
-          value="3"
-          checked={reviewScore === 3}
-          onChange={(e) => setReviewScore(+e.target.value)}
-        />
-        <label htmlFor="score3">3</label>
-        <input
-          type="radio"
-          name="score"
-          id="4"
-          value="4"
-          checked={reviewScore === 4}
-          onChange={(e) => setReviewScore(+e.target.value)}
-        />
-        <label htmlFor="score4">4</label>
-        <input
-          type="radio"
-          name="score"
-          id="5"
-          value="5"
-          checked={reviewScore === 5}
-          onChange={(e) => setReviewScore(+e.target.value)}
-        />
-        {reviewScore === 1 ? "what :c" : ""}
-        <label htmlFor="score5">5</label>
+        <div className="d-flex">{createScoreRadioInputs()}</div>
       </fieldset>
       <button type="submit" className="btn btn-primary">
         Submit review
