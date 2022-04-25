@@ -5,11 +5,11 @@ const ReviewForm = ({ addReviewItem }) => {
     const elements = []
     for (let index = 1; index < 6; index++) {
       elements.push(
-        <div className="me-2">
+        <div key={index} className="me-2">
           <input
             type="radio"
             name="score"
-            id={index}
+            id={`score${index}`}
             value={index}
             checked={reviewScore === index}
             onChange={(e) => setReviewScore(+e.target.value)}

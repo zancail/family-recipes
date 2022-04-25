@@ -10,16 +10,19 @@ import Layout from '../components/Layout'
 
 // Ingredients
 import IngredientComponent from '../components/ingredient-component'
+import ReviewForm from '../components/review-form'
+import ReviewList from '../components/review-list'
 
 // Content Components
 import WallOfTextComponent, {
   modelName as WallOfTextComponentModelName,
-} from '../components/wall-of-text-component'
+} from '../components/content/wall-of-text-component'
 import QuoteComponent, {
   modelName as QuoteComponentModelName,
-} from '../components/quote-component'
-import ReviewForm from '../components/review-form'
-import ReviewList from '../components/review-list'
+} from '../components/content/quote-component'
+import EmbedVideoYoutubeComponent, {
+  modelName as EmbedVideoYoutubeComponentModelName,
+} from '../components/content/embed-video-youtube-component'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
@@ -41,12 +44,16 @@ const RecipeContentfulTemplate = (props) => {
   const content = () => {
     if (recipe.contentReferences) {
       return recipe.contentReferences.map((reference, index) => {
+        console.log(reference)
         switch (reference.__typename) {
           case WallOfTextComponentModelName: {
             return <WallOfTextComponent key={index} {...reference} />
           }
           case QuoteComponentModelName: {
             return <QuoteComponent key={index} {...reference} />
+          }
+          case EmbedVideoYoutubeComponentModelName: {
+            return <EmbedVideoYoutubeComponent key={index} {...reference} />
           }
           default:
             return null
@@ -68,7 +75,6 @@ const RecipeContentfulTemplate = (props) => {
 
   const addReviewItem = (reviewItem) => {
     let items = [...reviewItems, reviewItem]
-    console.log(items)
     setReviewItems(items)
   }
 
@@ -257,6 +263,7 @@ export const pageQuery = graphql`
       contentReferences {
         ...WallOfTextComponentFragment
         ...QuoteComponentFragment
+        ...EmbedVideoYoutubeComponentFragment
       }
     }
   }
