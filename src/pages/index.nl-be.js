@@ -8,6 +8,7 @@ import FilterForm from '../components/filter-form'
 const IndexPage = (props) => {
   const { data } = props
   const allRecipes = data.allContentfulRecipe.edges || []
+  const recipeTags = data.allContentfulRecipeTag.nodes
   const emptyQuery = ''
 
   const [state, setState] = useState({ filteredData: [], query: emptyQuery })
@@ -28,7 +29,11 @@ const IndexPage = (props) => {
         <h1>Familie recepten</h1>
 
         {/* Filter form */}
-        <FilterForm items={allRecipes} parentCallback={handleCallback} />
+        <FilterForm
+          items={allRecipes}
+          parentCallback={handleCallback}
+          recipeTags={recipeTags}
+        />
 
         <RecipeList recipes={recipes} />
       </div>
@@ -60,6 +65,14 @@ export const pageQuery = graphql`
           }
           createdAt
         }
+      }
+    }
+    allContentfulRecipeTag(filter: { node_locale: { eq: "nl-BE" } }) {
+      nodes {
+        title
+        node_locale
+        createdAt
+        id
       }
     }
   }

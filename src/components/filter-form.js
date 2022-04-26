@@ -23,9 +23,10 @@ const FilterForm = (props) => {
   const handleTagsChange = (event) => {
     const query = event.target.value
 
-    filteredData = props.items.filter((r) =>
-      r.node.tags.some((i) => i.id === query)
-    )
+    filteredData = props.items.filter((r) => {
+      if (!r.node.tags) return false
+      return r.node.tags.some((i) => i.id === query)
+    })
 
     props.parentCallback({ query, filteredData })
   }
