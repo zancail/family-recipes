@@ -12,7 +12,7 @@ const IndexPage = (props) => {
     <Layout location={props.location}>
       <div className="container">
         <title>Home Page</title>
-        <h1>Family Recipes</h1>
+        <h1>Familie recepten</h1>
 
         <RecipeList recipes={recipes} />
       </div>
