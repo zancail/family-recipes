@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 
 import RecipeList from '../components/recipe-list'
 import Layout from '../components/Layout'
+import FilterForm from '../components/filter-form'
 
 const IndexPage = (props) => {
   const { data } = props
@@ -16,22 +17,8 @@ const IndexPage = (props) => {
 
   const recipes = hasSearchResults ? filteredData : allRecipes
 
-  const handleOnSortChange = (event) => {
-    const query = event.target.value
-
-    const filteredData = allRecipes.sort((a, b) => {
-      if (query === 'asc') {
-        return new Date(a.node.createdAt) - new Date(b.node.createdAt)
-      }
-      if (query === 'desc') {
-        return new Date(b.node.createdAt) - new Date(a.node.createdAt)
-      }
-    })
-
-    setState({
-      query,
-      filteredData,
-    })
+  const handleCallback = (value) => {
+    setState(value)
   }
 
   return (
@@ -41,20 +28,7 @@ const IndexPage = (props) => {
         <h1>Family Recipes</h1>
 
         {/* Filter form */}
-        <form action="" className="row">
-          <div className="form-group col-lg-4">
-            <label htmlFor="sort">Sort</label>
-            <select
-              name="sort"
-              id="sort"
-              className="form-control"
-              onChange={handleOnSortChange}
-            >
-              <option value="desc">Date descending</option>
-              <option value="asc">Date ascending</option>
-            </select>
-          </div>
-        </form>
+        <FilterForm items={allRecipes} parentCallback={handleCallback} />
 
         <RecipeList recipes={recipes} />
       </div>
