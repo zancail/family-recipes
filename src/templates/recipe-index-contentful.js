@@ -43,14 +43,14 @@ const IndexPage = (props) => {
 export default IndexPage
 
 export const pageQuery = graphql`
-  query {
+  query ($locale: String) {
     site {
       siteMetadata {
         title
       }
     }
     allContentfulRecipe(
-      filter: { node_locale: { eq: "en-US" } }
+      filter: { node_locale: { eq: $locale } }
       sort: { fields: createdAt, order: DESC }
     ) {
       edges {
@@ -73,7 +73,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allContentfulRecipeTag(filter: { node_locale: { eq: "en-US" } }) {
+    allContentfulRecipeTag(filter: { node_locale: { eq: $locale } }) {
       nodes {
         title
         node_locale

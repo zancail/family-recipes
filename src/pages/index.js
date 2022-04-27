@@ -1,13 +1,13 @@
-import React from "react"
-import { graphql, navigate, withPrefix } from "gatsby"
-import { getUserLangKey } from "ptz-i18n"
+import React from 'react'
+import { graphql, navigate, withPrefix } from 'gatsby'
+import { getUserLangKey } from 'ptz-i18n'
 
 const RedirectIndex = () => {
   // Skip build, Browsers only
-  if (typeof window !== "undefined") {
-    const { langs, defaultLangKey } = require("../data/languages.js")
+  if (typeof window !== 'undefined') {
+    const { langs, defaultLangKey } = require('../data/languages.js')
     const langKey = getUserLangKey(langs, defaultLangKey)
-    const homeUrl = withPrefix(`/${langKey}/`)
+    const homeUrl = withPrefix(`/${langKey}`)
 
     navigate(homeUrl)
   }

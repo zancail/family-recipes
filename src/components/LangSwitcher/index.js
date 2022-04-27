@@ -9,8 +9,8 @@ const LangSwitcher = (props) => {
           return (
             <li key={index} className="ms-4">
               <Link
-                to={lang.link}
-                key={lang.langKey}
+                to={lang.link.toLowerCase()}
+                key={lang.langKey.toLowerCase()}
                 style={{
                   color: 'white',
                 }}

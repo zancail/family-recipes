@@ -1,8 +1,12 @@
 const path = require(`path`)
+const languages = require('./src/data/languages')
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
+  const recipeIndexTemplate = path.resolve(
+    `./src/templates/recipe-index-contentful.js`
+  )
   const recipeTemplate = path.resolve(`./src/templates/recipe-contentful.js`)
 
   return graphql(
@@ -24,6 +28,17 @@ exports.createPages = ({ graphql, actions }) => {
     if (result.errors) {
       throw result.errors
     }
+
+    // Create recipe index
+    languages.langs.forEach((lang) => {
+      createPage({
+        path: `/${lang.toLowerCase()}`,
+        component: recipeIndexTemplate,
+        context: {
+          locale: lang,
+        },
+      })
+    })
 
     // Create recipe pages
     const recipes = result.data.allContentfulRecipe.edges
