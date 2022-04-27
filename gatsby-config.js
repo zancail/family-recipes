@@ -1,40 +1,41 @@
-const dotenv = require("dotenv")
-const languages = require("./src/data/languages")
+const dotenv = require('dotenv')
+const languages = require('./src/data/languages')
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
 
 module.exports = {
   siteMetadata: {
     title: `Family Recipes`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `http://familyrecipesmain.gatsbyjs.io/`,
     languages,
   },
   plugins: [
     {
-      resolve: "gatsby-source-contentful",
+      resolve: 'gatsby-source-contentful',
       options: {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         spaceId: process.env.SPACE_ID,
       },
     },
-    "gatsby-plugin-sass",
-    "gatsby-plugin-image",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
+    'gatsby-plugin-sass',
+    'gatsby-plugin-image',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
-      resolve: "gatsby-plugin-i18n",
+      resolve: 'gatsby-plugin-i18n',
       options: {
-        langKeyForNull: "any",
+        langKeyForNull: 'any',
         langKeyDefault: languages.defaultLangKey,
         useLangKeyLayout: false,
       },
     },
     {
-      resolve: "gatsby-plugin-manifest",
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        icon: "src/assets/images/icon.png",
+        icon: 'src/assets/images/icon.png',
       },
     },
   ],

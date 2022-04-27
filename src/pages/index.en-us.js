@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import RecipeList from '../components/recipe-list'
 import Layout from '../components/Layout'
 import FilterForm from '../components/filter-form'
+import Seo from '../components/seo'
 
 const IndexPage = (props) => {
   const { data } = props
@@ -24,6 +25,7 @@ const IndexPage = (props) => {
 
   return (
     <Layout location={props.location}>
+      <Seo title="All recipes" />
       <div className="container">
         <title>Home Page</title>
         <h1>Family Recipes</h1>

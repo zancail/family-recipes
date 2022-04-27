@@ -22,6 +22,7 @@ import EmbedVideoYoutubeComponent, {
   modelName as EmbedVideoYoutubeComponentModelName,
 } from '../components/content/embed-video-youtube-component'
 import PlyrWrapper from '../components/plyr-wrapper'
+import Seo from '../components/seo'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
@@ -92,6 +93,7 @@ const RecipeContentfulTemplate = (props) => {
 
   return (
     <Layout location={props.location} newMenu={newMenu}>
+      <Seo title={recipe.title} />
       <div className="container">
         <div className="row">
           <div className="col-lg-7">
