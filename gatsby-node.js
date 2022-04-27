@@ -43,11 +43,21 @@ exports.createPages = ({ graphql, actions }) => {
     // Create recipe pages
     const recipes = result.data.allContentfulRecipe.edges
 
-    recipes.forEach((recipe, index) => {
+    recipes.forEach((recipe) => {
+      const filteredRecipes = recipes.filter(
+        (item) => item.node.node_locale === recipe.node.node_locale
+      )
+
+      const currentIndex = filteredRecipes.indexOf(recipe)
+
+      console.log(filteredRecipes)
       // Check for a previous or next recipe
       const previous =
-        index === recipes.length - 1 ? null : recipes[index + 1].node
-      const next = index === 0 ? null : recipes[index - 1].node
+        currentIndex === filteredRecipes.length - 1
+          ? null
+          : filteredRecipes[currentIndex + 1]?.node
+      const next =
+        currentIndex === 0 ? null : filteredRecipes[currentIndex - 1]?.node
 
       createPage({
         path: `/${recipe.node.node_locale}/recipes/${recipe.node.slug}/`,
