@@ -20,7 +20,7 @@ const Header = (props) => {
                 <Link
                   to={`/${
                     props.langs.filter((lang) => lang.selected)[0].langKey
-                  }`}
+                  }/`}
                 >
                   Recipes
                 </Link>

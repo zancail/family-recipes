@@ -1,7 +1,7 @@
 const path = require(`path`)
 const languages = require('./src/data/languages')
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const recipeIndexTemplate = path.resolve(
@@ -9,7 +9,7 @@ exports.createPages = ({ graphql, actions }) => {
   )
   const recipeTemplate = path.resolve(`./src/templates/recipe-contentful.js`)
 
-  return graphql(
+  const recipeQuery = await graphql(
     `
       {
         allContentfulRecipe(sort: { fields: createdAt, order: DESC }) {
@@ -24,52 +24,54 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `
-  ).then((result) => {
-    if (result.errors) {
-      throw result.errors
-    }
+  )
 
-    // Create recipe index
-    languages.langs.forEach((lang) => {
-      createPage({
-        path: `/${lang}`,
-        component: recipeIndexTemplate,
-        context: {
-          locale: lang,
-        },
-      })
+  if (recipeQuery.errors) {
+    reporter.panicOnBuild(`Error while running GraphQL query.`)
+
+    return
+  }
+
+  // Create recipe index
+  languages.langs.forEach((lang) => {
+    createPage({
+      path: `/${lang}`,
+      component: recipeIndexTemplate,
+      context: {
+        locale: lang,
+      },
     })
+  })
 
-    // Create recipe pages
-    const recipes = result.data.allContentfulRecipe.edges
+  // Create recipe pages
+  const recipes = recipeQuery.data.allContentfulRecipe.edges
 
-    recipes.forEach((recipe) => {
-      const filteredRecipes = recipes.filter(
-        (item) => item.node.node_locale === recipe.node.node_locale
-      )
+  recipes.forEach((recipe) => {
+    const filteredRecipes = recipes.filter(
+      (item) => item.node.node_locale === recipe.node.node_locale
+    )
 
-      const currentIndex = filteredRecipes.indexOf(recipe)
+    const currentIndex = filteredRecipes.indexOf(recipe)
 
-      console.log(filteredRecipes)
-      // Check for a previous or next recipe
-      const previous =
-        currentIndex === filteredRecipes.length - 1
-          ? null
-          : filteredRecipes[currentIndex + 1]?.node
-      const next =
-        currentIndex === 0 ? null : filteredRecipes[currentIndex - 1]?.node
+    console.log(filteredRecipes)
+    // Check for a previous or next recipe
+    const previous =
+      currentIndex === filteredRecipes.length - 1
+        ? null
+        : filteredRecipes[currentIndex + 1]?.node
+    const next =
+      currentIndex === 0 ? null : filteredRecipes[currentIndex - 1]?.node
 
-      createPage({
-        path: `/${recipe.node.node_locale}/recipes/${recipe.node.slug}/`,
-        component: recipeTemplate,
-        context: {
-          slug: recipe.node.slug,
-          previous,
-          next,
-          nodeLocale: recipe.node.node_locale,
-          contentfulId: recipe.node.contentful_id,
-        },
-      })
+    createPage({
+      path: `/${recipe.node.node_locale}/recipes/${recipe.node.slug}/`,
+      component: recipeTemplate,
+      context: {
+        slug: recipe.node.slug,
+        previous,
+        next,
+        nodeLocale: recipe.node.node_locale,
+        contentfulId: recipe.node.contentful_id,
+      },
     })
   })
 }
