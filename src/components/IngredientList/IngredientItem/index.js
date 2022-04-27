@@ -21,15 +21,15 @@ const IngredientItem = ({
       firstRun.current = false
       return
     }
-    console.log(usedMetric)
     if (currentUnit === 'g' || currentUnit === 'cups') {
+      console.log(currentQuantity)
       switch (usedMetric) {
         case 'eu':
           setCurrentQuantity(currentQuantity * 150)
           setCurrentUnit('g')
           break
         case 'us':
-          setCurrentQuantity((currentQuantity) => currentQuantity / 150)
+          setCurrentQuantity(currentQuantity / 150)
           setCurrentUnit('cups')
           break
 
