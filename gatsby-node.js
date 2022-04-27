@@ -8,7 +8,7 @@ exports.createPages = ({ graphql, actions }) => {
   return graphql(
     `
       {
-        allContentfulRecipe {
+        allContentfulRecipe(sort: { fields: createdAt, order: DESC }) {
           edges {
             node {
               slug

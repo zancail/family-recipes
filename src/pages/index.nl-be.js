@@ -49,7 +49,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allContentfulRecipe(filter: { node_locale: { eq: "nl-BE" } }) {
+    allContentfulRecipe(
+      filter: { node_locale: { eq: "nl-BE" } }
+      sort: { fields: createdAt, order: DESC }
+    ) {
       edges {
         node {
           title

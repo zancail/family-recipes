@@ -49,7 +49,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allContentfulRecipe(filter: { node_locale: { eq: "en-US" } }) {
+    allContentfulRecipe(
+      filter: { node_locale: { eq: "en-US" } }
+      sort: { fields: createdAt, order: DESC }
+    ) {
       edges {
         node {
           title
