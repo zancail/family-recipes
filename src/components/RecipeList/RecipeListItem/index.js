@@ -1,8 +1,8 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { useState, useEffect } from "react"
+import * as React from 'react'
+import { Link } from 'gatsby'
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { useState, useEffect } from 'react'
 
 const RecipeListItem = (props) => {
   const title = props.recipe.title || props.recipe.slug
@@ -11,7 +11,7 @@ const RecipeListItem = (props) => {
   const [isSaved, setIsSaved] = useState(false)
 
   useEffect(() => {
-    console.log("Save button has updated")
+    console.log('Save button has updated')
   }, [isSaved])
 
   const toggleIsSaved = () => {
@@ -44,11 +44,15 @@ const RecipeListItem = (props) => {
           <button
             type="button"
             onClick={toggleIsSaved}
-            className={`btn border align-self-end position-relative ${
-              isSaved ? "btn-danger" : ""
+            className={`btn border align-self-end card--recipe__link-btn ${
+              isSaved ? 'btn-danger' : 'bg-white'
             }`}
           >
-            Save
+            <i
+              className={`${isSaved ? 'fa' : 'far'} fa-heart`}
+              aria-hidden="true"
+            ></i>
+            <span className="visually-hidden">Save</span>
           </button>
         </div>
       </div>
