@@ -1,7 +1,7 @@
-import React from "react"
-import { useState, useEffect, useRef } from "react"
+import React from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-const IngredientComponent = ({
+const IngredientItem = ({
   ingredient,
   servings,
   originalServings,
@@ -22,15 +22,15 @@ const IngredientComponent = ({
       return
     }
     console.log(usedMetric)
-    if (currentUnit === "g" || currentUnit === "cups") {
+    if (currentUnit === 'g' || currentUnit === 'cups') {
       switch (usedMetric) {
-        case "eu":
+        case 'eu':
           setCurrentQuantity(currentQuantity * 150)
-          setCurrentUnit("g")
+          setCurrentUnit('g')
           break
-        case "us":
+        case 'us':
           setCurrentQuantity((currentQuantity) => currentQuantity / 150)
-          setCurrentUnit("cups")
+          setCurrentUnit('cups')
           break
 
         default:
@@ -53,4 +53,4 @@ const IngredientComponent = ({
   )
 }
 
-export default IngredientComponent
+export default IngredientItem

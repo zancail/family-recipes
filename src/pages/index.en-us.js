@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 
-import RecipeList from '../components/recipe-list'
-import Layout from '../components/Layout'
-import FilterForm from '../components/filter-form'
-import Seo from '../components/seo'
+import { FilterForm, Layout, RecipeList, Seo } from '@components'
 
 const IndexPage = (props) => {
   const { data } = props

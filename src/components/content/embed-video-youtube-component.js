@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import PlyrWrapper from '../plyr-wrapper'
+import { PlyrWrapper } from '@components'
 
 const EmbedVideoYoutubeComponent = ({ urlOrId }) => {
   const regEx =

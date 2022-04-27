@@ -1,7 +1,7 @@
-import * as React from "react"
-import Link from "gatsby-link"
+import * as React from 'react'
+import Link from 'gatsby-link'
 
-const Langswitcher = (props) => {
+const LangSwitcher = (props) => {
   return (
     <div className="langswitcher ms-4">
       <ul className="list-unstyled d-flex">
@@ -12,9 +12,9 @@ const Langswitcher = (props) => {
                 to={lang.link}
                 key={lang.langKey}
                 style={{
-                  color: "white",
+                  color: 'white',
                 }}
-                className={lang.selected ? "active" : "text-decoration-none"}
+                className={lang.selected ? 'active' : 'text-decoration-none'}
               >
                 {lang.langKey}
               </Link>
@@ -26,4 +26,4 @@ const Langswitcher = (props) => {
   )
 }
 
-export default Langswitcher
+export default LangSwitcher

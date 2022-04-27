@@ -1,4 +1,5 @@
 const dotenv = require('dotenv')
+const path = require('path')
 const languages = require('./src/data/languages')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -36,6 +37,16 @@ module.exports = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         icon: 'src/assets/images/icon.png',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@components': path.resolve(__dirname, './src/components'),
+          '@pages': path.resolve(__dirname, './src/pages'),
+        },
+        extensions: [],
       },
     },
   ],

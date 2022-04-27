@@ -3,13 +3,14 @@ import { Link, graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
-// Layout
-import Layout from '../components/Layout'
-
-// Ingredients
-import IngredientComponent from '../components/ingredient-component'
-import ReviewForm from '../components/review-form'
-import ReviewList from '../components/review-list'
+import {
+  Layout,
+  IngredientList,
+  PlyrWrapper,
+  ReviewForm,
+  ReviewList,
+  Seo,
+} from '@components'
 
 // Content Components
 import WallOfTextComponent, {
@@ -21,8 +22,6 @@ import QuoteComponent, {
 import EmbedVideoYoutubeComponent, {
   modelName as EmbedVideoYoutubeComponentModelName,
 } from '../components/content/embed-video-youtube-component'
-import PlyrWrapper from '../components/plyr-wrapper'
-import Seo from '../components/seo'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
@@ -172,26 +171,12 @@ const RecipeContentfulTemplate = (props) => {
                     </div>
                   </div>
                 </div>
-                {recipe.ingredients && (
-                  <div>
-                    <h2 className="h4">Ingredients</h2>
-                    <table>
-                      <tbody>
-                        {recipe.ingredients.map((ingredient, i) => {
-                          return (
-                            <IngredientComponent
-                              ingredient={ingredient}
-                              servings={currentServings}
-                              originalServings={recipe.servings}
-                              key={i}
-                              usedMetric={activeMetrics}
-                            />
-                          )
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
+                <IngredientList
+                  ingredients={recipe.ingredients}
+                  currentServings={currentServings}
+                  servings={recipe.servings}
+                  activeMetrics={activeMetrics}
+                />
               </div>
             </div>
           </div>

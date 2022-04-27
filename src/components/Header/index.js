@@ -1,14 +1,14 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import useScrollPosition from "../hooks/useScrollPosition"
-import Langswitcher from "./langswitcher"
+import * as React from 'react'
+import { Link } from 'gatsby'
+import useScrollPosition from '../../hooks/useScrollPosition'
+import { LangSwitcher } from '@components'
 
 const Header = (props) => {
   const scrollPos = useScrollPosition()
   return (
     <header
       className={`header bg-primary text-white mb-4 ${
-        scrollPos > 40 ? "header--shrink" : ""
+        scrollPos > 40 ? 'header--shrink' : ''
       }`}
     >
       <div className="container d-flex justify-content-between align-items-center">
@@ -27,7 +27,7 @@ const Header = (props) => {
               </li>
             </ul>
           </nav>
-          <Langswitcher langs={props.langs} />
+          <LangSwitcher langs={props.langs} />
         </div>
       </div>
     </header>
