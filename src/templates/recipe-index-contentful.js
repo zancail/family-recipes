@@ -53,6 +53,15 @@ export const pageQuery = graphql`
         title
       }
     }
+    locales: allLocale(filter: { language: { eq: $locale } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     allContentfulRecipe(
       filter: { node_locale: { eq: $locale } }
       sort: { fields: createdAt, order: DESC }

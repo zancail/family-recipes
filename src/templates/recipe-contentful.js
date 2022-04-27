@@ -140,7 +140,6 @@ const RecipeContentfulTemplate = (props) => {
                     </div>
                   </div>
                 </div>
-                <Trans>recipe.ingredients title</Trans>
                 <IngredientList
                   ingredients={recipe.ingredients}
                   currentServings={currentServings}
@@ -155,7 +154,7 @@ const RecipeContentfulTemplate = (props) => {
         {/* Reviews */}
         <div className="row my-4">
           <div className="col-lg-6">
-            <h2>Reviews</h2>
+            <h2>{t('recipe.reviews title')}</h2>
             {reviewItems.length ? (
               <ReviewList reviews={reviewItems} />
             ) : (
