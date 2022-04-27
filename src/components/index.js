@@ -11,6 +11,9 @@ export { default as ReviewList } from './ReviewList'
 export { default as Seo } from './Seo'
 
 // Content Components
+export { default as EmbedVideoYoutube } from './EmbedVideoYoutube'
+export { default as Quote } from './Quote'
+export { default as WallOfText } from './WallOfText'
 
 // Other Stuff
 export { default as FilterForm } from './FilterForm'

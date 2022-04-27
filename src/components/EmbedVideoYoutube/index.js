@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { PlyrWrapper } from '@components'
 
-const EmbedVideoYoutubeComponent = ({ urlOrId }) => {
+const EmbedVideoYoutube = ({ urlOrId }) => {
   const regEx =
     '^(?:https?:)?//[^/]*(?:youtube(?:-nocookie)?.com|youtu.be).*[=/]([-\\w]{11})(?:\\?|=|&|$)'
   const videoId = urlOrId.urlOrId.match(regEx)[1]
@@ -22,7 +22,7 @@ const EmbedVideoYoutubeComponent = ({ urlOrId }) => {
   )
 }
 
-export default EmbedVideoYoutubeComponent
+export default EmbedVideoYoutube
 
 export const modelName = 'ContentfulEmbedVideoYoutube'
 
@@ -31,6 +31,7 @@ export const query = graphql`
     urlOrId {
       urlOrId
     }
+    contentful_id
     __typename
   }
 `

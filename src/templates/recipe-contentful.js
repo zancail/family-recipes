@@ -12,16 +12,7 @@ import {
   Seo,
 } from '@components'
 
-// Content Components
-import WallOfTextComponent, {
-  modelName as WallOfTextComponentModelName,
-} from '../components/content/wall-of-text-component'
-import QuoteComponent, {
-  modelName as QuoteComponentModelName,
-} from '../components/content/quote-component'
-import EmbedVideoYoutubeComponent, {
-  modelName as EmbedVideoYoutubeComponentModelName,
-} from '../components/content/embed-video-youtube-component'
+import { componentMapper } from '@utils'
 
 const RecipeContentfulTemplate = (props) => {
   const recipe = props.data.contentfulRecipe
@@ -34,7 +25,6 @@ const RecipeContentfulTemplate = (props) => {
   const currentUrl = props.location.pathname
   const currentUrlArray = currentUrl.split('/')
   recipes.edges.map(({ node: item }) => {
-    console.log(item)
     const newMenuItem = {}
     newMenuItem.langKey = item.node_locale.toLowerCase()
     let newUrl = currentUrlArray
@@ -48,20 +38,8 @@ const RecipeContentfulTemplate = (props) => {
 
   const content = () => {
     if (recipe.contentReferences) {
-      return recipe.contentReferences.map((reference, index) => {
-        switch (reference.__typename) {
-          case WallOfTextComponentModelName: {
-            return <WallOfTextComponent key={index} {...reference} />
-          }
-          case QuoteComponentModelName: {
-            return <QuoteComponent key={index} {...reference} />
-          }
-          case EmbedVideoYoutubeComponentModelName: {
-            return <EmbedVideoYoutubeComponent key={index} {...reference} />
-          }
-          default:
-            return null
-        }
+      return recipe.contentReferences?.map((reference, index) => {
+        // return contentMapper(reference)
       })
     }
     return (
@@ -109,7 +87,9 @@ const RecipeContentfulTemplate = (props) => {
               </ul>
             )}
             <div>{renderRichText(recipe.intro, {})}</div>
-            {content()}
+            {recipe.contentReferences?.map((element) =>
+              componentMapper(element)
+            )}
             {recipe.tutorial && (
               <PlyrWrapper>
                 <video className="js-player" playsInline controls>
