@@ -29,9 +29,7 @@ const RecipeListItem = (props) => {
             <h2 className="h4">
               <Link
                 className="card__link"
-                to={`/${props.recipe.node_locale.toLowerCase()}/recipes/${
-                  props.recipe.slug
-                }/`}
+                to={`/${props.recipe.node_locale}/recipes/${props.recipe.slug}/`}
               >
                 {title}
               </Link>

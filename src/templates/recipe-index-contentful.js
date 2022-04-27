@@ -3,11 +3,15 @@ import { graphql } from 'gatsby'
 
 import { FilterForm, Layout, RecipeList, Seo } from '@components'
 
+import { useTranslation } from 'gatsby-plugin-react-i18next'
+
 const IndexPage = (props) => {
   const { data } = props
   const allRecipes = data.allContentfulRecipe.edges || []
   const recipeTags = data.allContentfulRecipeTag.nodes
   const emptyQuery = ''
+
+  const { t } = useTranslation()
 
   const [state, setState] = useState({ filteredData: [], query: emptyQuery })
 
@@ -25,7 +29,7 @@ const IndexPage = (props) => {
       <Seo title="All recipes" />
       <div className="container">
         <title>Home Page</title>
-        <h1>Family Recipes</h1>
+        <h1>{t('home.title')}</h1>
 
         {/* Filter form */}
         <FilterForm

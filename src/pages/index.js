@@ -6,7 +6,7 @@ const RedirectIndex = () => {
   // Skip build, Browsers only
   if (typeof window !== 'undefined') {
     const { langs, defaultLangKey } = require('../data/languages.js')
-    const langKey = getUserLangKey(langs, defaultLangKey)
+    const langKey = getUserLangKey(langs.keys, defaultLangKey)
     const homeUrl = withPrefix(`/${langKey}`)
 
     navigate(homeUrl)

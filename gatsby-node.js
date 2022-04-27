@@ -32,7 +32,7 @@ exports.createPages = ({ graphql, actions }) => {
     // Create recipe index
     languages.langs.forEach((lang) => {
       createPage({
-        path: `/${lang.toLowerCase()}`,
+        path: `/${lang}`,
         component: recipeIndexTemplate,
         context: {
           locale: lang,
@@ -50,9 +50,7 @@ exports.createPages = ({ graphql, actions }) => {
       const next = index === 0 ? null : recipes[index - 1].node
 
       createPage({
-        path: `/${recipe.node.node_locale.toLowerCase()}/recipes/${
-          recipe.node.slug
-        }/`,
+        path: `/${recipe.node.node_locale}/recipes/${recipe.node.slug}/`,
         component: recipeTemplate,
         context: {
           slug: recipe.node.slug,

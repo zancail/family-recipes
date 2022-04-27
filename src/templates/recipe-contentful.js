@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { useTranslation, Trans } from 'gatsby-plugin-react-i18next'
 
 import {
   Layout,
@@ -15,6 +16,8 @@ import {
 import { componentMapper } from '@utils'
 
 const RecipeContentfulTemplate = (props) => {
+  const { t } = useTranslation()
+
   const recipe = props.data.contentfulRecipe
   const recipes = props.data.allContentfulRecipe
   const image = getImage(recipe.image)
@@ -26,29 +29,15 @@ const RecipeContentfulTemplate = (props) => {
   const currentUrlArray = currentUrl.split('/')
   recipes.edges.map(({ node: item }) => {
     const newMenuItem = {}
-    newMenuItem.langKey = item.node_locale.toLowerCase()
+    newMenuItem.langKey = item.node_locale
     let newUrl = currentUrlArray
-    newUrl[1] = item.node_locale.toLowerCase()
+    newUrl[1] = item.node_locale
     newUrl[newUrl.length - 2] = item.slug
     newUrl = newUrl.join('/')
     newMenuItem.link = newUrl
     newMenuItem.selected = nodeLocale === item.node_locale
     newMenu.push(newMenuItem)
   })
-
-  const content = () => {
-    if (recipe.contentReferences) {
-      return recipe.contentReferences?.map((reference, index) => {
-        // return contentMapper(reference)
-      })
-    }
-    return (
-      <div>
-        <h2>Preparation</h2>
-        <div>{renderRichText(recipe.preparation, {})}</div>
-      </div>
-    )
-  }
 
   // Hooks
   const [currentServings, setCurrentServings] = useState(recipe.servings)
@@ -151,6 +140,7 @@ const RecipeContentfulTemplate = (props) => {
                     </div>
                   </div>
                 </div>
+                <Trans>recipe.ingredients title</Trans>
                 <IngredientList
                   ingredients={recipe.ingredients}
                   currentServings={currentServings}
@@ -181,20 +171,14 @@ const RecipeContentfulTemplate = (props) => {
         <ul className="list-unstyled d-flex justify-content-between">
           <li>
             {previous && (
-              <Link
-                to={`/${nodeLocale.toLowerCase()}/recipes/${previous.slug}/`}
-                rel="prev"
-              >
+              <Link to={`/${nodeLocale}/recipes/${previous.slug}/`} rel="prev">
                 Previous: {previous.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link
-                to={`/${nodeLocale.toLowerCase()}/recipes/${next.slug}/`}
-                rel="next"
-              >
+              <Link to={`/${nodeLocale}/recipes/${next.slug}/`} rel="next">
                 Next: {next.title}
               </Link>
             )}
@@ -208,10 +192,23 @@ const RecipeContentfulTemplate = (props) => {
 export default RecipeContentfulTemplate
 
 export const pageQuery = graphql`
-  query ContentfulRecipeBySlug($slug: String!, $contentfulId: String) {
+  query ContentfulRecipeBySlug(
+    $slug: String!
+    $contentfulId: String
+    $nodeLocale: String
+  ) {
     site {
       siteMetadata {
         title
+      }
+    }
+    locales: allLocale(filter: { language: { eq: $nodeLocale } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
       }
     }
     contentfulRecipe(slug: { eq: $slug }) {
