@@ -26,14 +26,6 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
-      resolve: 'gatsby-plugin-i18n',
-      options: {
-        langKeyForNull: 'any',
-        langKeyDefault: languages.defaultLangKey,
-        useLangKeyLayout: false,
-      },
-    },
-    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: path.resolve(__dirname, './src/locales'),
