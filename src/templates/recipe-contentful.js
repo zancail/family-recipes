@@ -3,6 +3,7 @@ import { Link, graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { useTranslation, Trans } from 'gatsby-plugin-react-i18next'
+import useGeneratedLangMenu from '../hooks/useGeneratedLangMenu'
 
 import {
   Layout,
@@ -23,21 +24,11 @@ const RecipeContentfulTemplate = (props) => {
   const image = getImage(recipe.image)
   const { previous, next, nodeLocale } = props.pageContext
 
-  let newMenu = []
-
-  const currentUrl = props.location.pathname
-  const currentUrlArray = currentUrl.split('/')
-  recipes.edges.map(({ node: item }) => {
-    const newMenuItem = {}
-    newMenuItem.langKey = item.node_locale
-    let newUrl = currentUrlArray
-    newUrl[1] = item.node_locale
-    newUrl[newUrl.length - 1] = item.slug
-    newUrl = newUrl.join('/')
-    newMenuItem.link = newUrl
-    newMenuItem.selected = nodeLocale === item.node_locale
-    newMenu.push(newMenuItem)
-  })
+  const menu = useGeneratedLangMenu(
+    recipes,
+    nodeLocale,
+    props.location.pathname
+  )
 
   // Hooks
   const [currentServings, setCurrentServings] = useState(recipe.servings)
@@ -58,7 +49,7 @@ const RecipeContentfulTemplate = (props) => {
   }
 
   return (
-    <Layout location={props.location} newMenu={newMenu}>
+    <Layout location={props.location} newMenu={menu}>
       <Seo title={recipe.title} />
       <div className="container">
         <div className="row">
