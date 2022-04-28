@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, graphql } from 'gatsby'
 
 const Hero = ({ backgroundColor, backgroundMedia, content }) => {
   console.log(backgroundMedia)
@@ -11,17 +12,16 @@ const Hero = ({ backgroundColor, backgroundMedia, content }) => {
         <h1 className="display-5 fw-bold">{content.title}</h1>
         <div className="col-lg-6">
           <p className="lead mb-4">{content.body.body}</p>
-          <div className="d-grid gap-2 d-sm-flex ">
-            <button type="button" className="btn btn-primary btn-lg px-4 gap-3">
-              Primary button
-            </button>
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-lg px-4"
-            >
-              Secondary
-            </button>
-          </div>
+          {content.buttons && (
+            <div className="d-grid gap-2 d-sm-flex ">
+              <Link
+                to={`${content.buttons.internalLink}`}
+                className={`btn btn-${content.buttons.buttonType[0]} btn-lg px-4 gap-3`}
+              >
+                {content.buttons.text}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -29,3 +29,28 @@ const Hero = ({ backgroundColor, backgroundMedia, content }) => {
 }
 
 export default Hero
+
+export const query = graphql`
+  fragment ContentfulHeroFragment on ContentfulHero {
+    backgroundColor
+    backgroundMedia {
+      file {
+        url
+        contentType
+      }
+      gatsbyImageData(width: 2000)
+    }
+    content {
+      title
+      body {
+        body
+      }
+      buttons {
+        text
+        internalLink
+        buttonType
+      }
+    }
+    __typename
+  }
+`

@@ -1,7 +1,6 @@
 // Base
 export { default as Footer } from './Footer'
 export { default as Header } from './Header'
-export { default as Hero } from './Hero'
 export { default as IngredientList } from './IngredientList'
 export { default as LangSwitcher } from './LangSwitcher'
 export { default as Layout } from './Layout'
@@ -15,6 +14,7 @@ export { default as Seo } from './Seo'
 export { default as EmbedVideoYoutube } from './EmbedVideoYoutube'
 export { default as Quote } from './Quote'
 export { default as WallOfText } from './WallOfText'
+export { default as Hero } from './Hero'
 
 // Other Stuff
 export { default as FilterForm } from './FilterForm'

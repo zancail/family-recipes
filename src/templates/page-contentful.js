@@ -33,21 +33,7 @@ export const query = graphql`
     contentfulPage(id: { eq: $id }) {
       title
       hero {
-        backgroundColor
-        backgroundMedia {
-          file {
-            url
-            contentType
-          }
-          gatsbyImageData(width: 2000)
-        }
-        content {
-          title
-          body {
-            body
-          }
-        }
-        __typename
+        ...ContentfulHeroFragment
       }
     }
     allContentfulPage(filter: { contentful_id: { eq: $contentfulId } }) {
