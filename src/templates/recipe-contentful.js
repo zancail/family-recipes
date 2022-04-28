@@ -32,7 +32,7 @@ const RecipeContentfulTemplate = (props) => {
     newMenuItem.langKey = item.node_locale
     let newUrl = currentUrlArray
     newUrl[1] = item.node_locale
-    newUrl[newUrl.length - 2] = item.slug
+    newUrl[newUrl.length - 1] = item.slug
     newUrl = newUrl.join('/')
     newMenuItem.link = newUrl
     newMenuItem.selected = nodeLocale === item.node_locale

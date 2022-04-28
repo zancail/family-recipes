@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
+  trailingSlash: 'never',
   siteMetadata: {
     title: `Family Recipes`,
     siteUrl: `http://familyrecipesmain.gatsbyjs.io/`,

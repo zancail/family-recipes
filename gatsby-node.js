@@ -35,7 +35,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create recipe index
   languages.langs.forEach((lang) => {
     createPage({
-      path: `/${lang}`,
+      path: `/${lang}/recipes`,
       component: recipeIndexTemplate,
       context: {
         locale: lang,
