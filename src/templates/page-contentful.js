@@ -41,6 +41,12 @@ export const query = graphql`
           }
           gatsbyImageData(width: 2000)
         }
+        content {
+          title
+          body {
+            body
+          }
+        }
         __typename
       }
     }
