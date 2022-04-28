@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
+import Button from '../Button'
 
 const Hero = ({ backgroundColor, backgroundMedia, content }) => {
-  console.log(backgroundMedia)
   return (
     <div
       className={`bg--image py-5 mb-5 mt-n5 bg-${backgroundColor[0]}`}
@@ -14,12 +14,7 @@ const Hero = ({ backgroundColor, backgroundMedia, content }) => {
           <p className="lead mb-4">{content.body.body}</p>
           {content.buttons && (
             <div className="d-grid gap-2 d-sm-flex ">
-              <Link
-                to={`${content.buttons.internalLink}`}
-                className={`btn btn-${content.buttons.buttonType[0]} btn-lg px-4 gap-3`}
-              >
-                {content.buttons.text}
-              </Link>
+              <Button button={content.buttons} />
             </div>
           )}
         </div>
@@ -46,9 +41,7 @@ export const query = graphql`
         body
       }
       buttons {
-        text
-        internalLink
-        buttonType
+        ...ContentfulButtonFragment
       }
     }
     __typename

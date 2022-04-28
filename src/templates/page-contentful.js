@@ -29,7 +29,20 @@ const PageContentTemplate = (props) => {
 export default PageContentTemplate
 
 export const query = graphql`
-  query getContentfulPage($id: String!, $contentfulId: String!) {
+  query getContentfulPage(
+    $id: String!
+    $contentfulId: String!
+    $locale: String!
+  ) {
+    locales: allLocale(filter: { language: { eq: $locale } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
     contentfulPage(id: { eq: $id }) {
       title
       hero {
