@@ -8,8 +8,9 @@ exports.createPages = async ({ graphql, actions }) => {
     `./src/templates/recipe-index-contentful.js`
   )
   const recipeTemplate = path.resolve(`./src/templates/recipe-contentful.js`)
+  const pageTemplate = path.resolve(`./src/templates/page-contentful.js`)
 
-  const recipeQuery = await graphql(
+  const dataQuery = await graphql(
     `
       {
         allContentfulRecipe(sort: { fields: createdAt, order: DESC }) {
@@ -22,15 +23,39 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
+        allContentfulPage {
+          edges {
+            node {
+              contentful_id
+              slug
+              node_locale
+              id
+            }
+          }
+        }
       }
     `
   )
 
-  if (recipeQuery.errors) {
+  if (dataQuery.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
 
     return
   }
+
+  // Create pages
+  const pages = dataQuery.data.allContentfulPage.edges
+  pages.forEach((page) => {
+    createPage({
+      path: `/${page.node.node_locale}/pages/${page.node.slug}`,
+      component: pageTemplate,
+      context: {
+        contentfulId: page.node.contentful_id,
+        locale: page.node.node_locale,
+        id: page.node.id,
+      },
+    })
+  })
 
   // Create recipe index
   languages.langs.forEach((lang) => {
@@ -44,7 +69,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // Create recipe pages
-  const recipes = recipeQuery.data.allContentfulRecipe.edges
+  const recipes = dataQuery.data.allContentfulRecipe.edges
 
   recipes.forEach((recipe) => {
     const filteredRecipes = recipes.filter(
