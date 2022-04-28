@@ -4,8 +4,8 @@ const languages = require('./src/data/languages')
 exports.createSchemaCustomization = async ({ actions }) => {
   const { createTypes } = actions
   const typeDefs = `
-  type ContentfulHero implements Node @dontInfer {
-    backgroundMedia: ContentfulAssetFile!
+  type ContentfulHero implements Node {
+    backgroundMedia: ContentfulAsset
   }
 `
   createTypes(typeDefs)
