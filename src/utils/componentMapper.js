@@ -1,4 +1,4 @@
-import { EmbedVideoYoutube, Quote, WallOfText } from '@components'
+import { EmbedVideoYoutube, Quote, WallOfText, Hero } from '@components'
 
 import { CONTENT_TYPES } from '@constants'
 import React from 'react'
@@ -14,6 +14,9 @@ const componentMapper = (element) => {
       }
       case CONTENT_TYPES.EMBED_VIDEO_YOUTUBE: {
         return <EmbedVideoYoutube key={element.contentful_id} {...element} />
+      }
+      case CONTENT_TYPES.HERO: {
+        return <Hero key={element.contentful_id} {...element} />
       }
       default:
         return null

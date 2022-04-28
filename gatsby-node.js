@@ -2,7 +2,14 @@ const path = require(`path`)
 const languages = require('./src/data/languages')
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createTypes } = actions
+
+  const typeDefs = `
+    type ContentfulHero implements Node @dontInfer {
+      backgroundMedia: ContentfulAssetFile!
+    }
+  `
+  createTypes(typeDefs)
 
   const recipeIndexTemplate = path.resolve(
     `./src/templates/recipe-index-contentful.js`
