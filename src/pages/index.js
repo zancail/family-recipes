@@ -7,7 +7,7 @@ const RedirectIndex = () => {
   if (typeof window !== 'undefined') {
     const { langs, defaultLangKey } = require('../data/languages.js')
     const langKey = getUserLangKey(langs.keys, defaultLangKey)
-    const homeUrl = withPrefix(`/${langKey}`)
+    const homeUrl = withPrefix(`/${langKey}/recipes`)
 
     navigate(homeUrl)
   }
