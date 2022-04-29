@@ -6,11 +6,11 @@ const LangSwitcher = (props) => {
   const { i18n } = useTranslation()
 
   return (
-    <div className="langswitcher ms-4">
-      <ul className="list-unstyled d-flex">
+    <div className="langswitcher ms-lg-4">
+      <ul className="list-unstyled d-flex mx-n2">
         {props.langs.map((lang, index) => {
           return (
-            <li key={index} className="ms-4">
+            <li key={index} className="px-2">
               <Link
                 to={lang.link}
                 key={lang.langKey}

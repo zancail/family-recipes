@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import useScrollPosition from '../../hooks/useScrollPosition'
 import { LangSwitcher, Navigation } from '@components'
 import { useTranslation } from 'react-i18next'
+import { Navbar, Container } from 'react-bootstrap'
 
 const Header = ({ langs, currentLang }) => {
   const { t } = useTranslation()
@@ -48,16 +49,19 @@ const Header = ({ langs, currentLang }) => {
             scrollPos > 40 ? 'header--shrink' : ''
           }`}
         >
-          <div className="container d-flex justify-content-between align-items-center">
-            <div>{t('home.title')}</div>
-            <div className="d-flex">
-              <Navigation
-                navigation={data.allContentfulNavigation.edges}
-                currentLang={currentLang}
-              />
-              <LangSwitcher langs={langs} />
-            </div>
-          </div>
+          <Navbar bg="primary" variant="dark" expand="lg">
+            <Container>
+              <Navbar.Brand href="#home">{t('home.title')}</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Navigation
+                  navigation={data.allContentfulNavigation.edges}
+                  currentLang={currentLang}
+                />
+                <LangSwitcher langs={langs} />
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
         </header>
       )}
     />
