@@ -2,6 +2,7 @@ import React from 'react'
 import '../../styles/app.scss'
 import { Footer, Header } from '@components'
 import { getCurrentLangKey, getLangs, getUrlForLang } from 'ptz-i18n'
+import '../../i18n'
 
 const Layout = ({ children, location, newMenu }) => {
   const url = location.pathname

@@ -1,7 +1,10 @@
 import * as React from 'react'
 import Link from 'gatsby-link'
+import { useTranslation } from 'react-i18next'
 
 const LangSwitcher = (props) => {
+  const { i18n } = useTranslation()
+
   return (
     <div className="langswitcher ms-4">
       <ul className="list-unstyled d-flex">
@@ -14,6 +17,7 @@ const LangSwitcher = (props) => {
                 style={{
                   color: 'white',
                 }}
+                onClick={() => i18n.changeLanguage(lang.langKey)}
                 className={lang.selected ? 'active' : 'text-decoration-none'}
               >
                 {lang.langKey}

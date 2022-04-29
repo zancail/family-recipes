@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
+import { useTranslation } from 'react-i18next'
 
 import { FilterForm, Layout, RecipeList, Seo } from '@components'
-
-import { useTranslation } from 'gatsby-plugin-react-i18next'
 
 const IndexPage = (props) => {
   const { data } = props
@@ -51,15 +50,6 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-      }
-    }
-    locales: allLocale(filter: { language: { eq: $locale } }) {
-      edges {
-        node {
-          ns
-          data
-          language
-        }
       }
     }
     allContentfulRecipe(

@@ -1,6 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const FilterForm = (props) => {
+  const { t } = useTranslation()
   const recipeTags = props.recipeTags
 
   let filteredData = props.items
@@ -34,15 +36,15 @@ const FilterForm = (props) => {
   return (
     <form action="" className="row">
       <div className="form-group col-lg-4">
-        <label htmlFor="sort">Sort</label>
+        <label htmlFor="sort">{t('sort')}</label>
         <select
           name="sort"
           id="sort"
           className="form-control"
           onChange={handleOnSortChange}
         >
-          <option value="desc">Newest first</option>
-          <option value="asc">Oldest first</option>
+          <option value="desc">{t('newest first')}</option>
+          <option value="asc">{t('oldest first')}</option>
         </select>
       </div>
       {recipeTags.length && (
@@ -55,7 +57,7 @@ const FilterForm = (props) => {
             onChange={handleTagsChange}
           >
             <option value="" empty="true">
-              -- Show all --
+              {t('show all')}
             </option>
             {recipeTags.map((recipeTag, index) => {
               return (

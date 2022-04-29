@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { useTranslation, Trans } from 'gatsby-plugin-react-i18next'
 import useGeneratedLangMenu from '../hooks/useGeneratedLangMenu'
+import { useTranslation } from 'react-i18next'
 
 import {
   Layout,
@@ -182,23 +182,10 @@ const RecipeContentfulTemplate = (props) => {
 export default RecipeContentfulTemplate
 
 export const pageQuery = graphql`
-  query ContentfulRecipeBySlug(
-    $slug: String!
-    $contentfulId: String
-    $nodeLocale: String
-  ) {
+  query ContentfulRecipeBySlug($slug: String!, $contentfulId: String) {
     site {
       siteMetadata {
         title
-      }
-    }
-    locales: allLocale(filter: { language: { eq: $nodeLocale } }) {
-      edges {
-        node {
-          ns
-          data
-          language
-        }
       }
     }
     contentfulRecipe(slug: { eq: $slug }) {

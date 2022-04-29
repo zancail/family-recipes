@@ -3,8 +3,10 @@ import { Link } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const RecipeListItem = (props) => {
+  const { t } = useTranslation()
   const title = props.recipe.title || props.recipe.slug
   const image = getImage(props.recipe.image)
 
@@ -38,7 +40,7 @@ const RecipeListItem = (props) => {
               {renderRichText(props.recipe.intro)}
             </div>
           </div>
-          <span className="d-inline-block mt-4">View recipe</span>
+          <span className="d-inline-block mt-4">{t('view recipe')}</span>
           <button
             type="button"
             onClick={toggleIsSaved}
