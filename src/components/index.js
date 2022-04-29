@@ -15,6 +15,7 @@ export { default as EmbedVideoYoutube } from './EmbedVideoYoutube'
 export { default as Quote } from './Quote'
 export { default as WallOfText } from './WallOfText'
 export { default as Hero } from './Hero'
+export { default as Navigation } from './Navigation'
 
 // Other Stuff
 export { default as FilterForm } from './FilterForm'

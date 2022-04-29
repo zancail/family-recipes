@@ -12,8 +12,7 @@ const Layout = ({ children, location, newMenu }) => {
 
   return (
     <>
-      <Header langs={newMenu ?? langsMenu} />
-
+      <Header langs={newMenu ?? langsMenu} currentLang={langKey} />
       <main>{children}</main>
       <Footer />
     </>
