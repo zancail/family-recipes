@@ -46,9 +46,16 @@ export const query = graphql`
     link {
       externalUrl
       internalUrl {
-        slug
-        node_locale
-        __typename
+        ... on ContentfulPage {
+          slug
+          node_locale
+          __typename
+        }
+        ... on ContentfulRecipe {
+          slug
+          node_locale
+          __typename
+        }
       }
     }
     buttonType

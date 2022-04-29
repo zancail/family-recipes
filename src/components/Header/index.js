@@ -20,9 +20,16 @@ const Header = ({ langs, currentLang }) => {
                   text
                   link {
                     internalUrl {
-                      slug
-                      node_locale
-                      __typename
+                      ... on ContentfulPage {
+                        slug
+                        node_locale
+                        __typename
+                      }
+                      ... on ContentfulRecipe {
+                        slug
+                        node_locale
+                        __typename
+                      }
                     }
                     externalUrl
                   }
