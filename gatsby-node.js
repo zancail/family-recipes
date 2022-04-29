@@ -7,10 +7,6 @@ exports.createSchemaCustomization = async ({ actions }) => {
   type ContentfulHero implements Node {
     backgroundMedia: ContentfulAsset
   }
-  type NavigationLink {
-    slug: String,
-    node_local: String,
-  }
 `
   createTypes(typeDefs)
 }
