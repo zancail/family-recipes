@@ -1,12 +1,15 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
+import { URL_TYPES } from '@constants'
 
 const Button = ({ button }) => {
   const content = () => {
     const linkedModel = button.link?.internalUrl
     let url = ''
     if (linkedModel) {
-      url = `/${linkedModel.node_locale}/pages/${linkedModel.slug}`
+      url = `/${linkedModel.node_locale}/${URL_TYPES[linkedModel.__typename]}/${
+        linkedModel.slug
+      }`
       return (
         <Link
           to={`${url}`}
@@ -45,6 +48,7 @@ export const query = graphql`
       internalUrl {
         slug
         node_locale
+        __typename
       }
     }
     buttonType

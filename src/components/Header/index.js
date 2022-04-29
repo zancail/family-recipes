@@ -22,6 +22,7 @@ const Header = ({ langs, currentLang }) => {
                     internalUrl {
                       slug
                       node_locale
+                      __typename
                     }
                     externalUrl
                   }

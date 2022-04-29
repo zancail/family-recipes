@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { URL_TYPES } from '@constants'
 
 const Navigation = ({ navigation, currentLang }) => {
   let translatedNavigation = navigation.filter(({ node: item }) => {
@@ -11,7 +12,9 @@ const Navigation = ({ navigation, currentLang }) => {
     const linkedModel = navigationItem.link.internalUrl
     let url = ''
     if (linkedModel) {
-      url = `/${navigationItem.node_locale}/pages/${linkedModel.slug}`
+      url = `/${navigationItem.node_locale}/${
+        URL_TYPES[linkedModel.__typename]
+      }/${linkedModel.slug}`
       return <Link to={url}>{navigationItem.text}</Link>
     } else if (navigationItem.link.externalUrl) {
       url = navigationItem.link.externalUrl
