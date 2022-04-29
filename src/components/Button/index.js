@@ -2,9 +2,9 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 
 const Button = ({ button }) => {
-  const linkedModel = button.link.internalUrl
-  let url = ''
   const content = () => {
+    const linkedModel = button.link?.internalUrl
+    let url = ''
     if (linkedModel) {
       url = `/${linkedModel.node_locale}/pages/${linkedModel.slug}`
       return (
@@ -15,7 +15,7 @@ const Button = ({ button }) => {
           {button.text}
         </Link>
       )
-    } else if (button.link.externalUrl) {
+    } else if (button.link?.externalUrl) {
       url = button.link.externalUrl
       return (
         <a
@@ -27,6 +27,8 @@ const Button = ({ button }) => {
           {button.text}
         </a>
       )
+    } else {
+      return <a href="">{button.text}</a>
     }
   }
 
