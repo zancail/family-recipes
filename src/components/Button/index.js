@@ -6,7 +6,7 @@ const Button = ({ button }) => {
   return (
     <Link
       button={button}
-      linkClass={`btn btn-${button.buttonType[0]} btn-lg px-4 gap-3`}
+      linkClass={`btn btn-${button.buttonType} btn-lg px-4 gap-3`}
     />
   )
 }

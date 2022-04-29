@@ -12,9 +12,13 @@ const Hero = ({ backgroundColor, backgroundMedia, content }) => {
         <h1 className="display-5 fw-bold">{content.title}</h1>
         <div className="col-lg-6">
           <p className="lead mb-4">{content.body.body}</p>
-          {content.buttons && (
-            <div className="d-grid gap-2 d-sm-flex ">
-              <Button button={content.buttons} />
+          {content.buttons.length && (
+            <div className="d-grid gap-2 d-sm-flex">
+              {content.buttons.map((button, index) => (
+                <div key={index}>
+                  <Button button={button} />
+                </div>
+              ))}
             </div>
           )}
         </div>
